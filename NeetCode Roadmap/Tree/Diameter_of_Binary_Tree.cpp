@@ -25,10 +25,25 @@ public:
         if(root==nullptr){
             return 0;
         }
-        int left = findMaxDepth(root->left);
-        int right = findMaxDepth(root->right);
-        return left+right;
-
+        queue<TreeNode*>s;
+        s.push(root);
+        int maxDiameter=0;
+        while(!s.empty()){
+            int len = s.size();
+            for(int i=0;i<len;i++){
+                TreeNode* currNode = s.front();
+                if(currNode->left)s.push(currNode->left);
+                if(currNode->right)s.push(currNode->right);
+                int left = findMaxDepth(currNode->left);
+                int right = findMaxDepth(currNode->right);
+                int diameter = left+right;
+                if(diameter>maxDiameter){
+                    maxDiameter = diameter;
+                }
+                s.pop();
+            }
+        }
+        return maxDiameter;
     }
 };
 int main(){
