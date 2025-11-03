@@ -36,6 +36,20 @@ void inorder_using_recursion(treeNode* root){
 	cout<<root->val<<endl;
 	inorder_using_recursion(root->right);
 }
+void inorder_using_loop(treeNode* root){
+	stack<treeNode*>s;
+	treeNode* currPtr=root;
+	while(currPtr!=nullptr||!s.empty()){
+		while(currPtr!=nullptr){
+			s.push(currPtr);
+			currPtr=currPtr->left;
+		}
+		currPtr=s.top();
+		s.pop();
+		cout<<currPtr->val<<endl;
+		currPtr=currPtr->right;
+	}
+}
 
 int main(){
     treeNode Tree = treeNode(1);
@@ -54,5 +68,5 @@ int main(){
     Tree.right->right->left = new treeNode(14);
     Tree.right->right->right = new treeNode(15);
 
-    inorder_using_recursion(&Tree);
+    inorder_using_loop(&Tree);
 }
